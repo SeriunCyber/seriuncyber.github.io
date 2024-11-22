@@ -1,0 +1,12 @@
+body {
+    background-color: rgb(18, 38, 63);
+    color: white;
+}
+
+.button-box {
+    margin: 2%;
+}
+
+.testing-button {
+    margin-bottom: 1%;
+}
