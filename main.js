@@ -7,8 +7,7 @@ const windowsLinks = [
     'https://scan.cyberessentials.live/usersc/testfiles/windows/CEPlus.exe',
     'https://scan.cyberessentials.live/usersc/testfiles/windows/CEPlus.pif',
     'https://scan.cyberessentials.live/usersc/testfiles/windows/CEPlus.lnk',
-    'https://scan.cyberessentials.live/usersc/testfiles/windows-archive/CEPlus.zip',
-    'https://scan.cyberessentials.live/usersc/testfiles/amtso/PotentiallyUnwanted.exe'
+    'https://scan.cyberessentials.live/usersc/testfiles/windows-archive/CEPlus.zip'
 ];
 
 const potentiallyUnwantedLink = "https://scan.cyberessentials.live/usersc/testfiles/amtso/PotentiallyUnwanted.exe";
