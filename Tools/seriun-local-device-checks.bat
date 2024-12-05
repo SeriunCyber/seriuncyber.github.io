@@ -47,9 +47,7 @@ if not exist "%WebrootPath%" (
 echo WebrootPath: !WebrootPath!
 
 if exist "!WebrootPath!" (
-    echo Webroot is installed.
-    echo Retrieving Webroot version...
-    for /f "tokens=3" %%v in ('"wmic datafile where name="!WebrootPath:\=\\!" get version"') do echo Webroot SecureAnywhere version: %%v
+    echo Webroot is installed, cancelling Defender checks.
     echo -----------------------------------------------------
 ) else (
     echo Webroot is not installed. Checking Windows Defender status:
