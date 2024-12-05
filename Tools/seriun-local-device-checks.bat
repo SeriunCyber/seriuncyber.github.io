@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 
 :: Get the current user
 for /f "tokens=*" %%u in ('whoami') do set "CurrentUser=%%u"
@@ -36,10 +37,25 @@ for /f "skip=6 tokens=*" %%a in ('net localgroup administrators') do (
 )
 echo -----------------------------------------------------
 
-:: Get Defender information using PowerShell
-echo Checking Windows Defender status:
-for /f "delims=" %%i in ('powershell -command "Get-MpComputerStatus | Select-Object -Property AMServiceVersion, AntispywareSignatureLastUpdated, AntispywareSignatureVersion, AntivirusSignatureLastUpdated, AntivirusSignatureVersion"') do echo %%i
-echo -----------------------------------------------------
+:: Check if Webroot SecureAnywhere is installed by checking the WRSA.exe file
+echo Checking for Webroot SecureAnywhere installation:
+set "WebrootPath=%ProgramFiles%\Webroot\WRSA.exe"
+if not exist "%WebrootPath%" (
+    set "WebrootPath=%ProgramFiles(x86)%\Webroot\WRSA.exe"
+)
+
+echo WebrootPath: !WebrootPath!
+
+if exist "!WebrootPath!" (
+    echo Webroot is installed.
+    echo Retrieving Webroot version...
+    for /f "tokens=3" %%v in ('"wmic datafile where name="!WebrootPath:\=\\!" get version"') do echo Webroot SecureAnywhere version: %%v
+    echo -----------------------------------------------------
+) else (
+    echo Webroot is not installed. Checking Windows Defender status:
+    for /f "delims=" %%i in ('powershell -command "Get-MpComputerStatus | Select-Object -Property AMServiceVersion, AntispywareSignatureLastUpdated, AntispywareSignatureVersion, AntivirusSignatureLastUpdated, AntivirusSignatureVersion"') do echo %%i
+    echo -----------------------------------------------------
+)
 
 :: Pause to keep the window open
 pause
